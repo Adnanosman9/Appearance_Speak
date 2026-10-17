@@ -10,7 +10,9 @@ A brutally honest webcam app that uses Google's Gemini AI to analyze your appear
 <img src="https://img.shields.io/badge/OpenCV-5.0+-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white" alt="OpenCV">
 <img src="https://img.shields.io/badge/Google_Gemini-2.5_Flash-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Gemini">
 
-</div>
+
+</div><div align="center"> (This is my first OpenCV project) </div>
+
 
 ---
 
