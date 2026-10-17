@@ -24,7 +24,7 @@ pip install google-generativeai opencv-python python-dotenv Pillow pyttsx3
 echo GOOGLE_API_KEY=your_api_key_here > .env
 
 # Run
-python vision.py
+python Emotion_Analyzer.py
 ```
 
 Get your API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
@@ -68,9 +68,9 @@ if len(faces) > 0 and (time.time() - last_time) >= 10:
 
 ### Honest Truth
 
-I didn't really understand threading or the `time` library that well before this. Most of the debugging was done with **Claude Sonnet 4.5** helping me figure out why things weren't working. 
+I didn't really understand threading or the `time` library that well before this. Some part of the debugging was done with **Claude Sonnet 4.5** helping me figure out why things weren't working. 
 
-Pro tip: AI loves to fix one bug and casually introduce two more like it's doing you a favor. The AI-generated code had some "dummy" patterns that I tried to clean up, but there's probably still some AI fingerprints in there.
+Pro tip: AI loves to fix one bug and casually introduce two more like it's doing you a favor. The AI-generated code had some "dummy" patterns that I tried to clean up. 
 
 <div align="center">
 
