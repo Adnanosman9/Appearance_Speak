@@ -2,122 +2,60 @@
 
 # 👁️ Vision Analyzer
 
-### _AI-Powered Real-Time Appearance Roaster_
-
-A brutally honest webcam app that uses Google's Gemini AI to analyze your appearance and roast you in real-time.
-
-<img src="https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
-<img src="https://img.shields.io/badge/OpenCV-5.0+-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white" alt="OpenCV">
-<img src="https://img.shields.io/badge/Google_Gemini-2.5_Flash-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Gemini">
-
 </div>
 
----
+A fun python app that uses your webcam to spot your face, sends the frame to Google's Gemini API, and roasts your appearance out loud. 
 
-## 🚀 Quick Start
+## See It In Action
+![Demo](demo/Demo.gif)
 
-```bash
-# Install dependencies
-pip install google-generativeai opencv-python python-dotenv Pillow pyttsx3
+### Terminal Output
 
-# Create .env file with your API key
-echo GOOGLE_API_KEY=your_api_key_here > .env
+<img width="819" height="334" alt="terminal output" src="https://github.com/user-attachments/assets/05070cd3-ba17-40ce-aacd-515ad5dc239c" />
 
-# Run
-python Emotion_Analyzer.py
-```
+### Demo video
 
-Get your API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
+https://github.com/user-attachments/assets/09994e55-8186-4fdb-94ee-f6ed0f8073b2
 
-Press **Q** to quit.
+## Quick Start
 
----
+1. Grab the packaged code from our [Latest Release](https://github.com/Adnanosman9/Appearance_Speak/releases).
+2. Install the required libraries:
+   ```bash
+   pip install google-generativeai opencv-python python-dotenv Pillow pyttsx3
+   ```
+3. Create a `.env` file in the root folder and add your API key:
+   ```env
+   GOOGLE_API_KEY=your_actual_api_key_here
+   ```
+4. Run the script:
+   ```bash
+   python Emotion_Analyzer.py
+   ```
+   *(Press **Q** inside the camera window to exit).*
 
-## 🐛 Development Journey & Debugging
+## How It Works Under the Hood
+* **Face Detection:** Uses OpenCV's Haar Cascade classifier to scan frames and see if a user is sitting in front of the camera.
+* **Rate Limiting:** A simple time check ensures it only triggers an API request once every 10 seconds so it doesn’t spam the server. Change it if it causes any problem. 
+* **AI Analysis:** Converts the active video frame into a PIL image and sends it over to Gemini to generate a funny critique.
+* **Voice Output:** Passes the AI response to `pyttsx3` to read the roast out loud.
 
-Building this was honestly a mess. Here's what went wrong and how I fixed it (with a lot of help from AI).
-
-### Problem 1: Video Freezing During Analysis
-
-The video would freeze for 3-4 seconds every time the AI analyzed a frame. The Gemini API call was blocking the entire video loop.
-
-**The Fix:**
-Moved the analysis to a background thread so the video keeps running:
-
-```python
-def process():
-    result = analyze(frame)
-    print(result)
-    speak(result)
-
-threading.Thread(target=process, daemon=True).start()
-```
-
-### Problem 2: Analysis Not Working Properly
-
-After adding threading, the app would only analyze once and then stop. The state tracking logic was broken because the thread hadn't finished when the flag was set.
-
-**The Fix:**
-Replaced complex state tracking with a simple 10-second timer:
-
-```python
-if len(faces) > 0 and (time.time() - last_time) >= 10:
-    last_time = time.time()
-    # analyze in background thread
-```
+----------------
 
 ### Honest Truth
 
-I didn't really understand threading or the `time` library that well before this. Some part of the debugging was done with **Claude Sonnet 4.5** helping me figure out why things weren't working. 
-
-Pro tip: AI loves to fix one bug and casually introduce two more like it's doing you a favor. The AI-generated code had some "dummy" patterns that I tried to clean up. 
-
-<div align="center">
+Some part of the debugging was done with **Claude Sonnet 4.5** helping me figure out why things weren't working. 
 
 **Debugged with:**
 
 <img src="https://img.shields.io/badge/Claude-Sonnet_4.5-CC785C?style=for-the-badge&logo=anthropic&logoColor=white" alt="Claude Sonnet 4.5">
 
-</div>
+----------
 
----
+## Troubleshooting
+* **Blank Camera Feed:** Make sure no other apps (like Zoom or Discord) are using your webcam. If you are on Windows, ensure the `cv2.CAP_DSHOW` backend matches your system configuration.
+* **API Issues:** Double-check that your `.env` variable matches your Google AI Studio key exactly.
 
-![Project Screenshot](terminal_output.png)
+## License
+MIT
 
-
-## 🔧 How It Works
-
-1. Camera opens with DirectShow backend
-2. Detects faces every frame using Haar Cascade
-3. Every 10 seconds (if face detected) → send frame to Gemini AI
-4. AI analyzes appearance and gives blunt feedback
-5. Results printed to console and spoken out loud (both in background threads)
-6. Video keeps running smoothly throughout
-
----
-
-## 🛠️ Troubleshooting
-
-**Camera not working?**
-
-- Close other apps using the camera
-- Check Windows camera permissions
-- Make sure you're using `cv2.CAP_DSHOW`
-
-**API errors?**
-
-- Check your API key in `.env`
-- Verify internet connection
-- You might've hit the free tier limit
-
-**Video still freezing?**
-
-- The threading should fix this, but if not, try reducing the analysis frequency
-
----
-
-## 📜 License
-
-MIT License
-
-Note : This project is a humorous experiment in AI interaction and should not be taken seriously.
