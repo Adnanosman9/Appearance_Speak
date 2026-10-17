@@ -4,7 +4,7 @@
 
 </div>
 
-A fun python app that uses your webcam to spot your face, sends the frame to Google's Gemini API, and roasts your appearance out loud. 
+A fun python app that uses your webcam to spot your face, sends the frame to Google's Gemini API, and roasts your appearance loud. 
 
 ## See It In Action
 ![Demo](demo/Demo.gif)
@@ -19,7 +19,7 @@ https://github.com/user-attachments/assets/09994e55-8186-4fdb-94ee-f6ed0f8073b2
 
 ## Quick Start
 
-1. Grab the packaged code from our [Latest Release](https://github.com/Adnanosman9/Appearance_Speak/releases).
+1.  [Latest Release](https://github.com/Adnanosman9/Appearance_Speak/releases) is here. Download it. 
 2. Install the required libraries:
    ```bash
    pip install google-generativeai opencv-python python-dotenv Pillow pyttsx3
@@ -34,9 +34,11 @@ https://github.com/user-attachments/assets/09994e55-8186-4fdb-94ee-f6ed0f8073b2
    ```
    *(Press **Q** inside the camera window to exit).*
 
-## How It Works Under the Hood
+5. ### **Star the repo guys (I like it😭).**
+
+## How It Works
 * **Face Detection:** Uses OpenCV's Haar Cascade classifier to scan frames and see if a user is sitting in front of the camera.
-* **Rate Limiting:** A simple time check ensures it only triggers an API request once every 10 seconds so it doesn’t spam the server. Change it if it causes any problem. 
+* **Rate Limiting:** A simple time check ensures it only triggers an API request once every 10 seconds so it doesn’t spam the server. Change it if it causes any problems. 
 * **AI Analysis:** Converts the active video frame into a PIL image and sends it over to Gemini to generate a funny critique.
 * **Voice Output:** Passes the AI response to `pyttsx3` to read the roast out loud.
 
@@ -53,7 +55,7 @@ Some part of the debugging was done with **Claude Sonnet 4.5** helping me figure
 ----------
 
 ## Troubleshooting
-* **Blank Camera Feed:** Make sure no other apps (like Zoom or Discord) are using your webcam. If you are on Windows, ensure the `cv2.CAP_DSHOW` backend matches your system configuration.
+* **Blank Camera Feed:** Make sure no other apps (like Zoom or Discord) are using your webcam. 
 * **API Issues:** Double-check that your `.env` variable matches your Google AI Studio key exactly.
 
 ## License
