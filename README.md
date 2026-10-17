@@ -44,7 +44,7 @@ https://github.com/user-attachments/assets/09994e55-8186-4fdb-94ee-f6ed0f8073b2
 
 ----------------
 
-### Honest Truth
+### Additional note
 
 Some part of the debugging was done with **Claude Sonnet 4.5** helping me figure out why things weren't working. 
 
