@@ -82,6 +82,9 @@ Pro tip: AI loves to fix one bug and casually introduce two more like it's doing
 
 ---
 
+![Project Screenshot](terminal_output.png)
+
+
 ## 🔧 How It Works
 
 1. Camera opens with DirectShow backend
