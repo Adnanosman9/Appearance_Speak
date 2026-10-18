@@ -9,10 +9,22 @@ import time
 
 load_dotenv()
 
+api_key = os.getenv("GOOGLE_API_KEY")
+
+if not api_key:
+    print("=" * 60)
+    print(" [!] GOOGLE_API_KEY not found in local environment or .env file.")
+    api_key = input(" Please paste your Gemini API Key here and press Enter: ").strip()
+    print("=" * 60)
+
+if not api_key:
+    print("Error: No API key provided. Exiting application...")
+    time.sleep(3)
+    exit(1)
+
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
-client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
-
+client = genai.Client(api_key=api_key)
 
 def speak(text):
     def run():
@@ -36,7 +48,7 @@ def analyze(frame):
 
     response = client.models.generate_content(
 
-        model='gemini-2.5-flash',
+        model='gemini-3.8-flash',
         contents=[prompt, img]
     )
     return response.text
@@ -62,7 +74,7 @@ while True:
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray, 1.3, 5)
 
-    if len(faces) > 0 and (time.time() - last_time) >= 10:
+    if len(faces) > 0 and (time.time() - last_time) >= 60:
         last_time = time.time()
 
 
